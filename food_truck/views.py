@@ -44,4 +44,4 @@ class FoodTruckViewSet(viewsets.ViewSet):
             except ValueError:
                 return render(request, 'food_truck/food_truck_list.html', {'error': 'Invalid latitude or longitude.'})
         else:
-            return render(request, 'food_truck/food_truck_list.html', {'error': 'Latitude and longitude required.'})
+            return render(request, 'food_truck/food_truck_list.html')
