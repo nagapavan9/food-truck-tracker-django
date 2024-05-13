@@ -1,0 +1,34 @@
+
+1) create conda environment with a specific python version
+
+2)Find the unofficial gdal binaries from here  -  https://github.com/cgohlke/geospatial-wheels/releases . Choose the specific binary for gdal based on your python version and os(amd)
+
+3)download the binary
+
+4) inside conda env python -m pip install <path to binary>
+
+5) setup env variables in settings.py. Look for the bin in venv/condaenv which you installed
+
+for condaenv
+
+run in terminal
+cd C:\ProgramData\miniconda3\envs\food_truck_tracker
+dir /s /b gdal*.dll - take output of this and set GDAL_LIBRARY_PATH
+
+settings.py
+GDAL_LIBRARY_PATH = r"C:\ProgramData\miniconda3\envs\food_truck_tracker\Lib\site-packages\osgeo\gdal.dll"
+os.environ["GDAL_LIBRARY_PATH"] = GDAL_LIBRARY_PATH
+
+
+
+run in terminal
+cd C:\ProgramData\miniconda3\envs\food_truck_tracker
+dir /s /b geos*.dll - take output of this and set GDAL_LIBRARY_PATH
+
+settings.py
+GEOS_LIBRARY_PATH  = r'C:\ProgramData\miniconda3\envs\food_truck_tracker\Lib\site-packages\osgeo\geos_c.dll'
+os.environ["GEOS_LIBRARY_PATH "] = GEOS_LIBRARY_PATH 
+
+
+
+

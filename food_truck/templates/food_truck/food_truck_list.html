@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Closest Food Trucks</title>
+    {% load static %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/styles.css' %}" />
+  </head>
+  <body>
+    <header>
+      <h1>Closest Food Trucks</h1>
+    </header>
+
+    <main>
+      <section>
+        <p class="message">
+          Enter longitude and latitude of San Fransisco to find closest food
+          trucks nearby
+        </p>
+        <form id="searchForm" method="get" action="{% url 'foodtruck-list' %}">
+          <div class="form-data">
+            <input
+              type="text"
+              id="latitude"
+              name="latitude"
+              placeholder="Latitude"
+              required />
+          </div>
+          <div class="form-data">
+            <input
+              type="text"
+              id="longitude"
+              name="longitude"
+              placeholder="Longitude"
+              required />
+          </div>
+          {% if error %}
+          <p class="error">{{error}}</p>
+          {% endif %}
+          <button type="submit">Search 🚚</button>
+          <div class="note_container">
+            <div class="note_block">
+              <p>Note:</p>
+            </div>
+            <div>
+              <p>
+                Latitude of San Francisco should be within 37.6395 and 37.9298.
+              </p>
+              <p>
+                Longitude of San Francisco should be within 122.2818 and
+                123.1738.
+              </p>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section>
+        {% if trucks %}
+        <p class="message trucks_caption">List of food trucks nearby</p>
+        <ul class="trucks-list">
+          {% for truck in trucks %}
+          <li>🚚 {{ truck.applicant }} - {{truck.address}}</li>
+          <!-- Add more truck details here as needed -->
+          {% endfor %}
+        </ul>
+        <!-- Pagination Controls -->
+        <div class="pagination">
+          {% if trucks.has_previous %}
+          <a
+            href="?page={{ trucks.previous_page_number }}&latitude={{ request.GET.latitude }}&longitude={{ request.GET.longitude }}"
+            >Previous</a
+          >
+          {% endif %}
+          <span
+            >Page {{ trucks.number }} of {{ trucks.paginator.num_pages }}</span
+          >
+          {% if trucks.has_next %}
+          <a
+            href="?page={{ trucks.next_page_number }}&latitude={{ request.GET.latitude }}&longitude={{ request.GET.longitude }}"
+            >Next</a
+          >
+          {% endif %}
+        </div>
+        {% endif %}
+      </section>
+    </main>
+
+    <footer>
+      <!-- Add footer content here -->
+    </footer>
+  </body>
+</html>
